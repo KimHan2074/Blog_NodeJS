@@ -1,0 +1,23 @@
+<div class="mt-4">
+    <form method="POST" action=""> 
+        {{!-- mặc định method GET --}}
+        {{!-- action tức là khi bấm submit nó sẽ điều hướng đến trang news và mang theo Query Parameter đó (submit tại news) --}}
+        <div class="form-group">
+            <label for="search-input">Keywords</label>
+            <input type="text" name="q" class="form-control" id="search-input" placeholder="Search keywords">
+            {{!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+        </div>
+
+        <div class="form-group">
+            <label for="gender-input">Gender</label>
+            <select name="gender" class="form-control" id="search-input">
+                <option value="">---Select Gender---</option>
+                <option value="nam">Male</option>
+                <option value="nữ">Female</option>
+            </select>
+            {{!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
