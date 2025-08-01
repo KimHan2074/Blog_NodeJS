@@ -20,7 +20,7 @@ app.use(express.json()); /* gửi dữ liệu từ XMLHttpRequest, fetch API, ax
 // Template Engine
                             app.engine(
                                 'hbs',
-                                handlebars.engine({
+                                     handlebars.engine({
                                     extname: '.hbs',
                                 }),
                             );
