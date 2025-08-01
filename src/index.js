@@ -11,21 +11,21 @@ app.use(
 ); /*localhost:3000/img/hbs.jpg (sẽ hiển thị ảnh trên trình duyệt*/
 
 // Middleware để xử lý dữ liệu gửi lên server (req.body có dữ liệu)
-                                                    app.use(express.urlencoded()); /*gửi dữ liệu từ form  HTML */
+app.use(express.urlencoded()); /*gửi dữ liệu từ form  HTML */
 app.use(express.json()); /* gửi dữ liệu từ XMLHttpRequest, fetch API, axios */
 
 // HTTP logger
 // app.use(morgan('combined'));
 
 // Template Engine
-                            app.engine(
-                                'hbs',
-                                     handlebars.engine({
-                                    extname: '.hbs',
-                                }),
-                            );
-                app.set('view engine', 'hbs');
-                app.set('views', path.join(__dirname, 'resource/views'));
+app.engine(
+    'hbs',
+    handlebars.engine({
+        extname: '.hbs',
+    }),
+);
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'resource/views'));
 console.log('path', path.join(__dirname, 'resource/views'));
 // routes init
 route(app);
@@ -33,3 +33,5 @@ route(app);
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 }); /*Start một cái web server*/
+
+// Không chạy husky được nên mỗi lần git add -> npm run beautiful -> git commit ...
