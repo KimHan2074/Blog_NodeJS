@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
+    "prepare": "husky install",
     "beautiful":"lint-staged",
     "start": "nodemon --inspect src/index.js ",
     "watch": "sass src/resource/scss:src/public/css --watch",
