@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "scripts": {
     "prepare": "husky install",
-    "beautiful":"lint-staged", 
+    "beautiful": "lint-staged",
     "start": "nodemon --inspect src/index.js ",
     "watch": "sass src/resource/scss:src/public/css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -35,6 +35,9 @@
   "dependencies": {
     "express": "^5.1.0",
     "express-handlebars": "^8.0.3",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.13.8",
+    "mongoose-slug-generator": "^1.0.4",
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
