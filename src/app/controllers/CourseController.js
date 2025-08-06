@@ -25,7 +25,7 @@ class CourseController {
 
         course
             .save()
-            .then(() => res.redirect('/'))
+            .then(() => res.redirect('/user/stored/courses'))
             .catch(next);
     }
 
@@ -44,6 +44,29 @@ class CourseController {
     update(req, res, next) {
         Course.updateOne({ _id: req.params.id }, req.body)
             .then(() => res.redirect('/user/stored/courses'))
+            .catch(next);
+    }
+
+    /*[DELETE] /courses/:id/*/
+    remove(req, res, next) {
+        Course.delete({ _id: req.params.id })
+            .then(() => res.redirect(req.get('Referer')))
+            .catch(next);
+    }
+
+    /*[DELETE] /courses/:id/force*/
+    forceDelete(req, res, next) {
+        Course.deleteOne({ _id: req.params.id })
+            .then(() => res.redirect(req.get('Referer')))
+            .catch(next);
+    }
+
+    /*[PATCH] /:id/restore*/
+    restore(req, res, next) {
+        Course.restore({ _id: req.params.id })
+            .then(() =>
+                res.redirect(req.get('Referer') || 'user/trash/courses'),
+            )
             .catch(next);
     }
 }
