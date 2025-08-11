@@ -74,7 +74,7 @@ class CourseController {
     handleFormActions(req, res, next) {
         switch (req.body.action) {
             case 'remove':
-                console.log(req.body.courseIds); // debug xem có đúng mảng ID không
+                console.log(req.body.courseIds);
                 Course.delete({ _id: { $in: req.body.courseIds } })
                     .then(() => res.redirect(req.get('Referer')))
                     .catch(next);
@@ -88,7 +88,7 @@ class CourseController {
     handleFormActionsRecycleBin(req, res, next) {
         switch (req.body.action) {
             case 'restore':
-                console.log(req.body.courseIds); // debug xem có đúng mảng ID không
+                console.log(req.body.courseIds);
                 Course.restore({ _id: { $in: req.body.courseIds } })
                     .then(() =>
                         res.redirect(
@@ -98,7 +98,7 @@ class CourseController {
                     .catch(next);
                 break;
             case 'delete':
-                console.log(req.body.courseIds); // debug xem có đúng mảng ID không
+                console.log(req.body.courseIds);
                 Course.deleteOne({ _id: req.params.courseIds })
                     .then(() => res.redirect(req.get('Referer')))
                     .catch(next);

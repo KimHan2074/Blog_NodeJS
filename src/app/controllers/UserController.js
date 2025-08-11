@@ -16,8 +16,6 @@ class UserController {
             Course.findWithDeleted({ deletedAt: { $ne: null } }),
         ])
             .then(([courses, deletedCourses]) => {
-                // console.log(deletedCourses.length);
-
                 res.render('user/stored-courses', {
                     courses: mutipleMongooseToObject(courses),
                     deletedCount: deletedCourses.length,

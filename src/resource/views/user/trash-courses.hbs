@@ -121,12 +121,6 @@
       var isCheckedAll = $(this).prop('checked'); /*Dùng Tabnine....*/
       courseItemCheckbox.prop('checked', isCheckedAll);
       renderCheckAllSubmitBtn();
-      /*if (isCheckedAll){
-        courseItemCheckbox.prop('checked', true);
-      } 
-      else{
-        courseItemCheckbox.prop('checked', false);
-      }*/
     });
 
     /*courseItemCheckbox changed*/
@@ -135,22 +129,6 @@
       checkboxAll.prop('checked', isCheckedAll);
       renderCheckAllSubmitBtn();
     });
-
-    /*Check-all submit btn clicked*/
-    /* checkAllSubmitBtn.click(function(e){
-      e.preventDefault();
-      var isSubmittable = !$(this).hasClass('disabled');
-      if (isSubmittable){
-        containerForm.submit();
-      }
-    }); */
-
-    /*containerForm.on('submit', function(e){
-      var isSubmittable = !checkAllSubmitBtn.hasClass('disabled');
-      if (!isSubmittable){
-        e.preventDefault();
-      }
-    });*/
 
     /*re-render checkall submit btn*/
     function renderCheckAllSubmitBtn(){

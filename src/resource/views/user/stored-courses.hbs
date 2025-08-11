@@ -35,9 +35,6 @@
                 <th scope="col">
                   Course
                   {{{sortable 'name' _sort}}}
-                  {{!-- <a href="?_sort&column=name&type=desc">
-                    <i class="fa-solid fa-sort"></i>
-                  </a> --}}
                 </th>
                 <th scope="col">
                   Description
@@ -128,12 +125,6 @@
       var isCheckedAll = $(this).prop('checked'); /*Dùng Tabnine....*/
       courseItemCheckbox.prop('checked', isCheckedAll);
       renderCheckAllSubmitBtn();
-      /*if (isCheckedAll){
-        courseItemCheckbox.prop('checked', true);
-      } 
-      else{
-        courseItemCheckbox.prop('checked', false);
-      }*/
     });
 
     /*courseItemCheckbox changed*/
@@ -142,22 +133,6 @@
       checkboxAll.prop('checked', isCheckedAll);
       renderCheckAllSubmitBtn();
     });
-
-    /*Check-all submit btn clicked*/
-    /* checkAllSubmitBtn.click(function(e){
-      e.preventDefault();
-      var isSubmittable = !$(this).hasClass('disabled');
-      if (isSubmittable){
-        containerForm.submit();
-      }
-    }); */
-
-    /*containerForm.on('submit', function(e){
-      var isSubmittable = !checkAllSubmitBtn.hasClass('disabled');
-      if (!isSubmittable){
-        e.preventDefault();
-      }
-    });*/
 
     /*re-render checkall submit btn*/
     function renderCheckAllSubmitBtn(){
