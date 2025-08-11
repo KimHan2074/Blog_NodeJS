@@ -69,6 +69,44 @@ class CourseController {
             )
             .catch(next);
     }
+
+    /*[POST] /courses/handle-action-forms */
+    handleFormActions(req, res, next) {
+        switch (req.body.action) {
+            case 'remove':
+                console.log(req.body.courseIds); // debug xem có đúng mảng ID không
+                Course.delete({ _id: { $in: req.body.courseIds } })
+                    .then(() => res.redirect(req.get('Referer')))
+                    .catch(next);
+                break;
+            default:
+                res.json({ message: 'Action is invalid!' });
+        }
+    }
+
+    /*[POST] /courses/handle-action-forms-recyclebin */
+    handleFormActionsRecycleBin(req, res, next) {
+        switch (req.body.action) {
+            case 'restore':
+                console.log(req.body.courseIds); // debug xem có đúng mảng ID không
+                Course.restore({ _id: { $in: req.body.courseIds } })
+                    .then(() =>
+                        res.redirect(
+                            req.get('Referer') || 'user/trash/courses',
+                        ),
+                    )
+                    .catch(next);
+                break;
+            case 'delete':
+                console.log(req.body.courseIds); // debug xem có đúng mảng ID không
+                Course.deleteOne({ _id: req.params.courseIds })
+                    .then(() => res.redirect(req.get('Referer')))
+                    .catch(next);
+                break;
+            default:
+                res.json({ message: 'Action is invalid!' });
+        }
+    }
 }
 
 module.exports = new CourseController();

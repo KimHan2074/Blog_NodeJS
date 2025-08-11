@@ -3,14 +3,24 @@ const { mutipleMongooseToObject } = require('../../util/mongoose');
 class UserController {
     /*[GET] /stored/courses*/
     storedCourses(req, res, next) {
+        let courseQuery = Course.find({});
+
+        if (Object.hasOwn(req.query, '_sort')) {
+            courseQuery = courseQuery.sort({
+                [req.query.column]: req.query.type,
+            });
+        }
+
         Promise.all([
-            Course.find({}), // Lấy danh sách khóa học chưa bị xóa
-            Course.countDocumentsDeleted(), // Đếm số lượng đã bị xóa mềm
+            courseQuery,
+            Course.findWithDeleted({ deletedAt: { $ne: null } }),
         ])
-            .then(([courses, deletedCount]) => {
+            .then(([courses, deletedCourses]) => {
+                // console.log(deletedCourses.length);
+
                 res.render('user/stored-courses', {
-                    courses: mutipleMongooseToObject(courses), // Sửa chính tả: mutiple -> multiple
-                    deletedCount,
+                    courses: mutipleMongooseToObject(courses),
+                    deletedCount: deletedCourses.length,
                 });
             })
             .catch(next);
@@ -20,9 +30,11 @@ class UserController {
     trashCourses(req, res, next) {
         Course.findDeleted()
             .then((courses) => {
-                console.log(courses); // kiểm tra có kết quả không
+                const deletedCourses = courses.filter(
+                    (course) => course.deleted === true,
+                );
                 res.render('user/trash-courses', {
-                    courses: mutipleMongooseToObject(courses),
+                    courses: mutipleMongooseToObject(deletedCourses),
                 });
             })
             .catch(next);

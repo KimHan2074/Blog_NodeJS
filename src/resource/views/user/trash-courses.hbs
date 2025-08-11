@@ -1,12 +1,31 @@
-<div class="mt-4">
+<form class="mt-4" name="container-form" method="POST" action="/courses/handle-form-actions-recyclebin">
     <div>
       <a class="" href="/user/stored/courses">Back</a>
       <h3>Recycle Bin</h3>
-    </div>
+
+      <div class="mt-4 d-flex align-items-center">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+          <label class="form-check-label" for="checkbox-all">
+            Select all
+          </label>
+        </div>
+
+        <select class="form-control form-control-sm checkbox-select-all-options" name="action" required>
+          <option value="">--- Select Action ---</option>
+          <option value="restore">Restore</option>
+          <option value="delete">Delete</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary btn-sm btn-check-all-submit" disabled>
+            Apply
+        </button>
+      </div>
     
     <table class="table mt-4">
         <thead>
             <tr>
+                <th></th>
                 <th scope="col">#</th>
                 <th scope="col">Course</th>
                 <th scope="col">Description</th>
@@ -17,6 +36,11 @@
         <tbody>
             {{#each courses}}
             <tr>
+                <td>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="courseIds[]" value="{{this._id}}">
+                  </div>
+                </td>
                 <th scope="row">{{sum @index 1}}</th>
                 <td>{{this.name}}</td>
                 <td>{{this.description}}</td>
@@ -36,7 +60,7 @@
             {{/each}}
         </tbody>
     </table>
-</div>
+</form>
 
 {{!-- Confirm delete course --}}
 <div class="modal" tabindex="-1" id="delete-course-modal">
@@ -68,8 +92,12 @@
     var courseId;
     var deleteForm = document.forms['delete-course-form'];
     var restoreForm = document.forms['restore-course-form'];
+    var containerForm = $('form[name="container-form"]');
     var btnDeleteCourse = document.getElementById('btn-delete-course');
     var restoreBtn = $('.btn-restore') /*lấy được tất cả các nút restore trong vòng lặp each */
+    var checkboxAll = $('#checkbox-all');
+    var courseItemCheckbox = $('input[name="courseIds[]"]');
+    var checkAllSubmitBtn = $('.btn-check-all-submit');
     /*When dialog confirm clicked */
     $('#delete-course-modal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget); 
@@ -87,5 +115,52 @@
       restoreForm.action = '/courses/' + courseId + '/restore?_method=PATCH';
       restoreForm.submit();
     });
+
+    /*checkboxAll changed*/
+    checkboxAll.change(function(){
+      var isCheckedAll = $(this).prop('checked'); /*Dùng Tabnine....*/
+      courseItemCheckbox.prop('checked', isCheckedAll);
+      renderCheckAllSubmitBtn();
+      /*if (isCheckedAll){
+        courseItemCheckbox.prop('checked', true);
+      } 
+      else{
+        courseItemCheckbox.prop('checked', false);
+      }*/
+    });
+
+    /*courseItemCheckbox changed*/
+    courseItemCheckbox.change(function(){
+      var isCheckedAll = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length;
+      checkboxAll.prop('checked', isCheckedAll);
+      renderCheckAllSubmitBtn();
+    });
+
+    /*Check-all submit btn clicked*/
+    /* checkAllSubmitBtn.click(function(e){
+      e.preventDefault();
+      var isSubmittable = !$(this).hasClass('disabled');
+      if (isSubmittable){
+        containerForm.submit();
+      }
+    }); */
+
+    /*containerForm.on('submit', function(e){
+      var isSubmittable = !checkAllSubmitBtn.hasClass('disabled');
+      if (!isSubmittable){
+        e.preventDefault();
+      }
+    });*/
+
+    /*re-render checkall submit btn*/
+    function renderCheckAllSubmitBtn(){
+      var checkedCount = $('input[name="courseIds[]"]:checked').length;
+      if (checkedCount > 0){
+        checkAllSubmitBtn.attr('disabled', false);
+      }
+      else{
+        checkAllSubmitBtn.attr('disabled', true);
+      }
+    };
   }); 
 </script>
