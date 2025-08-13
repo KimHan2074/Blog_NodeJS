@@ -99,7 +99,7 @@ class CourseController {
                 break;
             case 'delete':
                 console.log(req.body.courseIds);
-                Course.deleteOne({ _id: req.params.courseIds })
+                Course.deleteOne({ _id: req.body.courseIds })
                     .then(() => res.redirect(req.get('Referer')))
                     .catch(next);
                 break;

@@ -15,9 +15,13 @@
             </div>
             <p class="text-muted">{{course.description}}</p>
         </div>
+
         <div class="col-lg-3">
-            <div class="d-flex justify-content-center align-items-center" style="height: 70vh;">
-                <button class="btn btn-lg shadow text-white" style="background-color: #f57c00;">Learn Now!</button>
+            <div class="card shadow p-3 text-center card-summary" style="border-radius: 20px;">
+                <h5 class="mb-3">Get Started Now</h5>
+                <p><strong>Duration:</strong> {{course.duration}}</p>
+                <p><strong>Lesson:</strong> {{course.lesson}}</p>
+                <button class="btn btn-lg text-white btn-learn-now">Learn Now!</button>
             </div>
         </div>
     </div>
