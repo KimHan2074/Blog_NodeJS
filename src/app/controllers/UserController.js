@@ -26,7 +26,15 @@ class UserController {
 
     // /*[GET] /trash/courses*/
     trashCourses(req, res, next) {
-        Course.findDeleted()
+        let courseQuery = Course.findDeleted();
+
+        if (Object.hasOwn(req.query, '_sort')) {
+            courseQuery = courseQuery.sort({
+                [req.query.column]: req.query.type,
+            });
+        }
+
+        courseQuery
             .then((courses) => {
                 const deletedCourses = courses.filter(
                     (course) => course.deleted === true,

@@ -8,6 +8,7 @@ const app = express();
 const port = 3000;
 const route = require('./routes');
 const db = require('./config/db');
+const minimatch = require('minimatch');
 // Connect to DB
 db.connect();
 // Statis file
