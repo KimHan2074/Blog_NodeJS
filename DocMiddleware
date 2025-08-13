@@ -25,4 +25,4 @@ Nhà <=================== Sự kiện
 - Chức năng phân quyền (Authorization)
 - Để chia sẻ giá trị của biến đến tất cả các views (BE)
 
-### "start": "nodemon --inspect src/index.js ",
+### 
